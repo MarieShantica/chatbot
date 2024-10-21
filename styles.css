@@ -1,0 +1,92 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #B3A369; /* Georgia Tech Gold */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.chat-container {
+    background-color: #003057; /* Georgia Tech Blue */
+    border-radius: 8px;
+    width: 400px;
+    max-width: 100%;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    background-color: #FFD100; /* Buzz's yellow */
+    color: #003057;
+    padding: 10px;
+    text-align: center;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.header h1 {
+    margin: 0;
+}
+
+.header p {
+    margin: 5px 0 0;
+}
+
+.chat-window {
+    background-color: #FFF;
+    height: 400px;
+    overflow-y: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-container {
+    display: flex;
+    padding: 10px;
+    background-color: #FFD100;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+#user-input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    resize: none;
+    height: 50px;
+}
+
+#send-button {
+    background-color: #003057;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin-left: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#send-button:hover {
+    background-color: #B3A369;
+}
+
+.chat-message {
+    margin-bottom: 10px;
+}
+
+.user-message {
+    text-align: right;
+    color: #003057;
+}
+
+.bot-message {
+    text-align: left;
+    color: #FFD100;
+}
