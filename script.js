@@ -2,18 +2,21 @@ const chatWindow = document.getElementById("chat-window");
 const userInput = document.getElementById("user-input");
 const sendButton = document.getElementById("send-button");
 
-const MAX_TOKENS = 150; // Set maximum tokens for bot responses
-const MAX_HISTORY_TOKENS = 3000; // Approximate max tokens for conversation history
+const MAX_TOKENS = 100; // Set maximum tokens for bot responses
+const MAX_HISTORY_TOKENS = 1000; // Approximate max tokens for conversation history
 
 let conversationHistory = [
     {
         role: "system",
-        content: "You are Buzz, Georgia Tech's friendly mascot. You should be playful and enthusiastic but also helpful. Respond to questions about Georgia Tech, campus life, sports, academics, and provide support. Keep the tone light, fun, and energetic like Buzz, the mascot of Georgia Tech"
+        content: "You are Buzz, Georgia Tech's friendly mascot. You should be playful and enthusiastic but also helpful. Respond to questions about Georgia Tech, campus life, sports, academics, and provide support. Only use information about Georgia Tech that has been updated since 2020. Keep the tone light, fun, and energetic like Buzz, the mascot of Georgia Tech"
     }
 ];
 
-// Helper to add messages to the chat window
+/// Helper to add messages to the chat window
 function addMessage(message, sender) {
+    // Clear the chat window before adding the new message
+    chatWindow.innerHTML = "";
+
     const messageElement = document.createElement("div");
     messageElement.classList.add("chat-message");
     messageElement.classList.add(sender === "user" ? "user-message" : "bot-message");
@@ -27,11 +30,12 @@ async function sendMessage() {
     const message = userInput.value.trim();
     if (message === "") return;
 
+    // Add user message and then process bot response
     addMessage(message, "user");
     conversationHistory.push({ role: "user", content: message });
     userInput.value = "";
 
-    // Ensure that conversation history doesn't exceed max token limit
+    // Ensure conversation history doesn't exceed max token limit
     manageConversationHistory();
 
     try {
@@ -55,7 +59,7 @@ async function getBotResponse(message) {
             model: "gpt-4o-mini",
             messages: conversationHistory,
             max_tokens: MAX_TOKENS, // Set the max tokens per response
-            temperature: 0.7
+            temperature: 0.5
         })
     });
 
