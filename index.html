@@ -12,12 +12,19 @@
             <h1>BuzzBot</h1>
             <p>Your friendly Georgia Tech assistant!</p>
         </div>
-        <div class="chat-window" id="chat-window"></div>
+        <div class="chat-window" id="chat-window">
+            <!-- Chatbot response bubble -->
+            <div class="bot-response" id="bot-response">
+                <p class="bot-message">Hello! How can I assist you today?</p>
+            </div>            
+        </div>
         <div class="input-container">
             <textarea id="user-input" placeholder="Type your message..."></textarea>
             <button id="send-button">Send</button>
         </div>
     </div>
+    <img src="buzz.png" class="buzz-image" alt="Buzz Image">
+
     <script src="script.js"></script>
 </body>
 </html>
