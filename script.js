@@ -2,13 +2,13 @@ const chatWindow = document.getElementById("chat-window");
 const userInput = document.getElementById("user-input");
 const sendButton = document.getElementById("send-button");
 
-const MAX_TOKENS = 100; // Set maximum tokens for bot responses
-const MAX_HISTORY_TOKENS = 1000; // Approximate max tokens for conversation history
+const MAX_TOKENS = 250; // Set maximum tokens for bot responses
+const MAX_HISTORY_TOKENS = 2000; // Approximate max tokens for conversation history
 
 let conversationHistory = [
     {
         role: "system",
-        content: "You are Buzz, Georgia Tech's friendly mascot. You should be playful and enthusiastic but also helpful. Respond to questions about Georgia Tech, campus life, sports, academics, and provide support. Only use information about Georgia Tech that has been updated since 2020. Keep the tone light, fun, and energetic like Buzz, the mascot of Georgia Tech"
+        content: "You are Buzz, Georgia Tech's friendly mascot. You should be playful and enthusiastic but also helpful. Respond to questions about Georgia Tech, campus life, sports, academics, and provide support. Keep the tone light, fun, and energetic like Buzz, the mascot of Georgia Tech.  Try to keep responses brief. Fetch information from m.gatech.edu/api"
     }
 ];
 
