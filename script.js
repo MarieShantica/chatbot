@@ -12,6 +12,52 @@ let conversationHistory = [
     }
 ];
 
+const backgrounds = {
+    socialLife: "images/image.png",
+    computing: "images/image (1).png",
+    general: "images/image 3.png",
+    dining: "images/image 4.png",
+    academic: "images/image 5.png",
+    library: "images/image 6.png",
+    research: "images/image 7.png",
+    lab: "images/image 8.png", 
+    campus: "images/image 10.png"
+};
+
+// Variable to track if the user has interacted
+let hasInteracted = false;
+
+function changeBackground(message) {
+    hasInteracted = true;
+    let background;
+
+    // Check for keywords and set the background based on the message content
+    if (message.includes("student center") || message.includes("chick") || message.includes("student") || message.includes("bowling")) {
+        background = backgrounds.socialLife;
+    } else if (message.includes("cs") || message.includes("computer") || message.includes("coding")) {
+        background = backgrounds.computing;
+    } else if (message.includes("nav") || message.includes("willage") || message.includes("dining") || message.includes("food") || message.includes("breakfast") || message.includes("lunch") || message.includes("dinner")) {
+        background = backgrounds.dining;
+    } else if (message.includes("culc") || message.includes("clough") || message.includes("study") || message.includes("learn") || message.includes("exam")) {
+        background = backgrounds.academic;
+    } else if (message.includes("crossland") || message.includes("books")) {
+        background = backgrounds.library;
+    } else if (message.includes("research")) {
+        background = backgrounds.research;
+    } else if (message.includes("lab")) {
+        background = backgrounds.lab;
+    } else if (message.includes("city") || message.includes("view") || message.includes("ATL") || message.includes("Atlanta") || message.includes("life") || message.includes("atlanta")) {
+        background = backgrounds.campus;
+    } else {
+        background = backgrounds.general; // Fallback to general background
+    }
+
+    // Change the chat window's background if the user has interacted
+    if (hasInteracted) {
+        chatWindow.style.backgroundImage = `url('${background}')`;
+    }
+}
+
 /// Helper to add messages to the chat window
 function addMessage(message, sender) {
     // Clear the chat window before adding the new message
@@ -34,6 +80,9 @@ async function sendMessage() {
     addMessage(message, "user");
     conversationHistory.push({ role: "user", content: message });
     userInput.value = "";
+
+    // Change background based on the user's message
+     changeBackground(message);
 
     // Ensure conversation history doesn't exceed max token limit
     manageConversationHistory();
