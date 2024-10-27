@@ -102,7 +102,7 @@ async function getBotResponse(message) {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer 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`
+            "Authorization": `Bearer API_KEY'
         },
         body: JSON.stringify({
             model: "gpt-4o-mini",
