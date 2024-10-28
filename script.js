@@ -1,3 +1,51 @@
+// Select elements
+const apiKeyDropdown = document.getElementById('api-key-dropdown');
+const apiKeyInput = document.getElementById('api-key-input');
+const submitApiKeyButton = document.getElementById('submit-api-key');
+
+// Retrieve stored API key or set an empty value if none exists
+let API_KEY = localStorage.getItem('API_KEY') || '';
+
+// Show the dropdown if there's no API key stored
+window.addEventListener('load', () => {
+    if (!API_KEY) {
+        apiKeyDropdown.style.display = 'block';
+    } else {
+        startChatBot();
+    }
+});
+
+// Handle API key submission
+submitApiKeyButton.addEventListener('click', () => {
+    const apiKeyValue = apiKeyInput.value.trim();
+
+    if (apiKeyValue) {
+        // Store the API key and hide the dropdown
+        API_KEY = apiKeyValue;
+        localStorage.setItem('API_KEY', API_KEY);
+        apiKeyDropdown.style.display = 'none';
+        
+        // Start chatbot functions
+        startChatBot();
+    } else {
+        alert("Please enter a valid API Key.");
+    }
+});
+
+// Initialize chatbot functions
+function startChatBot() {
+    console.log("Chatbot started with API Key:", API_KEY);
+    
+    // Add event listeners for sending messages
+    sendButton.addEventListener("click", sendMessage);
+    userInput.addEventListener("keypress", function (e) {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            sendMessage();
+        }
+    });
+}
+
 const chatWindow = document.getElementById("chat-window");
 const userInput = document.getElementById("user-input");
 const sendButton = document.getElementById("send-button");
@@ -102,7 +150,7 @@ async function getBotResponse(message) {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer API_KEY`
+            "Authorization": `Bearer ${API_KEY}`
         },
         body: JSON.stringify({
             model: "gpt-4o-mini",
@@ -117,12 +165,13 @@ async function getBotResponse(message) {
 }
 
 function manageConversationHistory() {
-    // Optional: Approximate token length, modify if necessary (tokens are approx 3/4 of words)
-    const tokenLengthEstimate = conversationHistory.reduce((acc, msg) => acc + msg.content.split(" ").length * 0.75, 0);
+    // Token length estimate
+    let tokenLengthEstimate = conversationHistory.reduce((acc, msg) => acc + msg.content.split(" ").length * 0.75, 0);
 
     // Remove oldest messages if the total tokens exceed the max allowed
     while (tokenLengthEstimate > MAX_HISTORY_TOKENS) {
-        conversationHistory.splice(1, 1); // Keep the system message intact, remove the oldest user/assistant pair
+        conversationHistory.splice(1, 1); // Keep the system message intact, remove oldest user/assistant pair
+        tokenLengthEstimate = conversationHistory.reduce((acc, msg) => acc + msg.content.split(" ").length * 0.75, 0); // Recalculate token estimate
     }
 }
 
