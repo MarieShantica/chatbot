@@ -6,29 +6,26 @@ const submitApiKeyButton = document.getElementById('submit-api-key');
 // Retrieve stored API key or set an empty value if none exists
 let API_KEY = localStorage.getItem('API_KEY') || '';
 
-// Show the dropdown if there's no API key stored
-window.addEventListener('load', () => {
-    if (!API_KEY) {
-        apiKeyDropdown.style.display = 'block';
-    } else {
-        startChatBot();
-    }
-});
-
-// Handle API key submission
+// Function to handle API key submission
 submitApiKeyButton.addEventListener('click', () => {
     const apiKeyValue = apiKeyInput.value.trim();
-
     if (apiKeyValue) {
-        // Store the API key and hide the dropdown
         API_KEY = apiKeyValue;
         localStorage.setItem('API_KEY', API_KEY);
         apiKeyDropdown.style.display = 'none';
-        
-        // Start chatbot functions
         startChatBot();
     } else {
         alert("Please enter a valid API Key.");
+    }
+});
+
+// Check if API_KEY is loaded on page load
+window.addEventListener('load', () => {
+    API_KEY = localStorage.getItem('API_KEY') || '';
+    if (API_KEY) {
+        startChatBot();
+    } else {
+        apiKeyDropdown.style.display = 'block';
     }
 });
 
